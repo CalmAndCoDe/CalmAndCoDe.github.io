@@ -1,29 +1,33 @@
-/**
- * Welcome to your Workbox-powered service worker!
- *
- * You'll need to register this file in your web app and you should
- * disable HTTP caching for this file too.
- * See https://goo.gl/nhQhGp
- *
- * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
- * and re-run your build process.
- * See https://goo.gl/2aRDsh
- */
+importScripts("/precache-manifest.c18118c08b3495db47e57e4ee38a7b69.js", "/workbox-v3.6.3/workbox-sw.js");
+workbox.setConfig({modulePathPrefix: "/workbox-v3.6.3"});
+workbox.core.setCacheNameDetails({
+    prefix: 'mercedess',
+    suffix: 'hotel',
+    precache: 'main-cache',
+})
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+workbox.skipWaiting()
+workbox.clientsClaim()
+workbox.routing.registerNavigationRoute('/index.html')
 
-importScripts(
-  "/precache-manifest.908aeae8e1e3871430bc821def290597.js"
-);
+self.addEventListener('activate',e => {
+    e.waitUntil(async () => {
+        if(self.registeration.navigationPreload){
+            await self.registeration.navigationPreload.enable()
+        }
+    })
+})
 
-workbox.core.setCacheNameDetails({prefix: "portfolio"});
 
-/**
- * The workboxSW.precacheAndRoute() method efficiently caches and responds to
- * requests for URLs in the manifest.
- * See https://goo.gl/S9QRab
- */
-self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.suppressWarnings();
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+workbox.routing.registerRoute(
+    new RegExp(/https:\/\/fonts.googleapis.com\/css\?family\=.*/),
+    workbox.strategies.cacheFirst({
+        Plugins: [
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0,200]
+            })
+        ],
+        cacheName: 'Google-Fonts'
+    })
+)
+

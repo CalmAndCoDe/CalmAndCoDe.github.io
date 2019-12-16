@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.c18118c08b3495db47e57e4ee38a7b69.js", "/workbox-v3.6.3/workbox-sw.js");
+importScripts("/precache-manifest.de4897a88f2bbaeefc52f6076319b159.js", "/workbox-v3.6.3/workbox-sw.js");
 workbox.setConfig({modulePathPrefix: "/workbox-v3.6.3"});
 workbox.core.setCacheNameDetails({
     prefix: 'mercedess',
